@@ -39,9 +39,8 @@ public class Snake : MonoBehaviour
         if (_tail.Count > 0)
         {
             for (var i = _tail.Count - 1; i > 0; i--)
-            {
                 _tail[i].position = _tail[i - 1].position;
-            }
+            
             _tail[0].position = transform.position;
         }
 
@@ -49,4 +48,10 @@ public class Snake : MonoBehaviour
         _lastDirection = _direction; 
         _moveTime = Time.time + 1 / speed;
     }
+
+    // Triggered by UnityEvent
+    // private void EatFood()
+    // {
+    //     Debug.Log("Food Eaten");
+    // }
 }
