@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject food;
+    public GameObject foodPrefab;
     public Player player;
+    
+    private GameObject _currentFood;
 
     private const float CellSize = 0.3f;
     private const int GridSizeX = 20;
@@ -24,7 +26,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Triggered by UnityEvent
-    public void SpawnFood()
+    private void SpawnFood()
     {
         // Generate a random integer index, then multiply by cellSize to snap to the grid
         var x = Random.Range(-GridSizeX + 1, GridSizeX - 1) * CellSize;
@@ -32,11 +34,20 @@ public class GameManager : MonoBehaviour
 
         var rndPos = new Vector2(x, y);
 
-        Instantiate(food, rndPos, Quaternion.identity); // last is rotation
+        _currentFood = Instantiate(foodPrefab, rndPos, Quaternion.identity); // last is rotation
     }
 
     private void ResetGame()
     {
-            player.ResetPlayer();
+        player.ResetPlayer();
+    }
+
+    public void FoodEaten()
+    {
+        if (_currentFood != null)
+            Destroy(_currentFood);
+        
+        SpawnFood();
+        player.AddTail();
     }
 }
