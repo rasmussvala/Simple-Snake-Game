@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 58440936}
   - component: {fileID: 58440937}
   m_Layer: 0
-  m_Name: Snake
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e90458bc3a87468c9cb62d91fb0040e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellSize: 0.3
   speed: 5
 --- !u!212 &58440934
 SpriteRenderer:
@@ -489,7 +488,7 @@ GameObject:
   - component: {fileID: 744641336}
   - component: {fileID: 744641335}
   m_Layer: 0
-  m_Name: FoodManager
+  m_Name: GameManager
   m_TagString: FoodManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -508,6 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 5360801624887090511, guid: 9d5a7129d57b14269b222cc9f2ced4f8, type: 3}
+  player: {fileID: 0}
 --- !u!4 &744641336
 Transform:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class Food : MonoBehaviour
 
     private void Start()
     {
-        foodCollected.AddListener(GameObject.FindGameObjectWithTag("FoodManager").GetComponent<FoodManager>().SpawnFood);
+        foodCollected.AddListener(GameObject.FindGameObjectWithTag("FoodManager").GetComponent<GameManager>().SpawnFood);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

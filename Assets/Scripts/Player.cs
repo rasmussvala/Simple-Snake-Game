@@ -1,11 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Snake : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private Vector2 _direction = Vector2.right;
-    private Vector2 _lastDirection = Vector2.right; 
-    public float cellSize = 0.3f;
+    private Vector2 _lastDirection = Vector2.right;
     public float speed = 1f; // Cells per second
 
     private float _moveTime;
@@ -33,6 +32,7 @@ public class Snake : MonoBehaviour
     {
         if (!(Time.time > _moveTime)) return;
 
+        const float cellSize = 0.3f;
         var newPosition = transform.position + (Vector3)_direction * cellSize;
 
         // Move Tail (If it exists)
@@ -47,6 +47,15 @@ public class Snake : MonoBehaviour
         transform.position = newPosition;
         _lastDirection = _direction; 
         _moveTime = Time.time + 1 / speed;
+    }
+
+    public void ResetPlayer()
+    {
+        _tail.Clear();
+        _moveTime = 0;
+        _direction = Vector2.right;
+        _lastDirection = Vector2.right;
+        transform.position = Vector2.zero;
     }
 
     // Triggered by UnityEvent
