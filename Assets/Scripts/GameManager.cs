@@ -1,4 +1,5 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,16 +17,6 @@ public class GameManager : MonoBehaviour
         SpawnFood();
     }
 
-    private void Update()
-    {
-        var pos = player.transform.position;
-        
-        if(pos.x is >= GridSizeX * CellSize or <= -GridSizeX * CellSize || 
-           pos.y is >= GridSizeY * CellSize or <= -GridSizeY * CellSize)
-            ResetGame();
-    }
-
-    // Triggered by UnityEvent
     private void SpawnFood()
     {
         // Generate a random integer index, then multiply by cellSize to snap to the grid
@@ -37,17 +28,25 @@ public class GameManager : MonoBehaviour
         _currentFood = Instantiate(foodPrefab, rndPos, Quaternion.identity); // last is rotation
     }
 
-    private void ResetGame()
+    public void ResetGame()
     {
+        if (_currentFood)
+        {
+            Destroy(_currentFood);
+            SpawnFood();
+        }
+
         player.ResetPlayer();
     }
 
     public void FoodEaten()
     {
-        if (_currentFood != null)
+        if (_currentFood)
+        {
             Destroy(_currentFood);
+            SpawnFood();
+        }
         
-        SpawnFood();
         player.AddTail();
     }
 }

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  tailPrefab: {fileID: 5678983935309361305, guid: 90d16b8b1473844a7bd448e21e2978ae, type: 3}
 --- !u!212 &58440934
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -489,7 +490,7 @@ GameObject:
   - component: {fileID: 744641335}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: FoodManager
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
