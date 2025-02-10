@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -8,7 +8,9 @@ public class Player : MonoBehaviour
     public float speed = 1f; // Cells per second
 
     private float _moveTime;
-    private List<Transform> _tail = new(); 
+    private readonly List<Transform> _tail = new();
+
+    public GameObject tailPrefab;
 
     private void Update()
     {
@@ -40,17 +42,20 @@ public class Player : MonoBehaviour
         {
             for (var i = _tail.Count - 1; i > 0; i--)
                 _tail[i].position = _tail[i - 1].position;
-            
+
             _tail[0].position = transform.position;
         }
 
         transform.position = newPosition;
-        _lastDirection = _direction; 
+        _lastDirection = _direction;
         _moveTime = Time.time + 1 / speed;
     }
 
     public void ResetPlayer()
     {
+        foreach (var segment in _tail)
+            Destroy(segment.gameObject);
+
         _tail.Clear();
         _moveTime = 0;
         _direction = Vector2.right;
@@ -58,9 +63,15 @@ public class Player : MonoBehaviour
         transform.position = Vector2.zero;
     }
 
-    // Triggered by UnityEvent
-    // private void EatFood()
-    // {
-    //     Debug.Log("Food Eaten");
-    // }
+    public void AddTail()
+    {
+        Vector3 spawnPosition;
+        if (_tail.Count > 0)
+            spawnPosition = _tail[^1].position;
+        else
+            spawnPosition = transform.position - (Vector3)_direction * 0.3f;
+
+        var newTail = Instantiate(tailPrefab, spawnPosition, Quaternion.identity);
+        _tail.Add(newTail.transform);
+    }
 }
