@@ -1,16 +1,24 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
+    public float startSpeed = 5f; // Cells per second
+    public GameObject tailPrefab;
+
     private Vector2 _direction = Vector2.right;
     private Vector2 _lastDirection = Vector2.right;
-    public float speed = 1f; // Cells per second
-
+    private float _speed;
     private float _moveTime;
     private readonly List<Transform> _tail = new();
 
-    public GameObject tailPrefab;
+
+    private void Start()
+    {
+        _speed = startSpeed;
+    }
 
     private void Update()
     {
@@ -48,7 +56,7 @@ public class Player : MonoBehaviour
 
         transform.position = newPosition;
         _lastDirection = _direction;
-        _moveTime = Time.time + 1 / speed;
+        _moveTime = Time.time + 1 / _speed;
     }
 
     public void ResetPlayer()
@@ -61,6 +69,7 @@ public class Player : MonoBehaviour
         _direction = Vector2.right;
         _lastDirection = Vector2.right;
         transform.position = Vector2.zero;
+        _speed = startSpeed;
     }
 
     public void AddTail()
@@ -73,5 +82,10 @@ public class Player : MonoBehaviour
 
         var newTail = Instantiate(tailPrefab, spawnPosition, Quaternion.identity);
         _tail.Add(newTail.transform);
+    }
+
+    public void IncreaseSpeed()
+    {
+       _speed += 0.5f;
     }
 }

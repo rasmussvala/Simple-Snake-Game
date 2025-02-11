@@ -41,12 +41,13 @@ public class GameManager : MonoBehaviour
 
     public void FoodEaten()
     {
-        if (_currentFood)
-        {
-            Destroy(_currentFood);
-            SpawnFood();
-        }
-        
         player.AddTail();
+        player.IncreaseSpeed();
+        
+        if (!_currentFood) return;
+        
+        Destroy(_currentFood);
+        SpawnFood();
+
     }
 }
