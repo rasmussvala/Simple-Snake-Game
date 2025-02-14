@@ -7,9 +7,13 @@ public class GameManager : MonoBehaviour
     public GameObject foodPrefab;
     public Player player;
     public TextMeshProUGUI scoreText;
+    public GameObject pauseMenu;
+
 
     private GameObject _currentFood;
     private int _score = 0;
+    private bool _isPaused = false;
+
 
     private const float CellSize = 0.3f;
     private const int GridSizeX = 20;
@@ -19,6 +23,12 @@ public class GameManager : MonoBehaviour
     {
         SpawnFood();
         scoreText.text = _score.ToString();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            TogglePause();
     }
 
     private void SpawnFood()
@@ -58,5 +68,12 @@ public class GameManager : MonoBehaviour
     {
         _score++;
         scoreText.text = _score.ToString();
+    }
+
+    private void TogglePause()
+    {
+        _isPaused = !_isPaused;
+        Time.timeScale = _isPaused ? 0 : 1;
+        pauseMenu.SetActive(_isPaused);
     }
 }
