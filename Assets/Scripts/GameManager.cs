@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public Player player;
     public TextMeshProUGUI scoreText;
     public GameObject pauseMenu;
+    public GameObject endMenu;
+    public TextMeshProUGUI endScoreText;
 
 
     private GameObject _currentFood;
@@ -27,8 +29,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !endMenu.activeSelf)
             TogglePause();
+
+        if (Input.GetKeyDown(KeyCode.Space) && endMenu.activeInHierarchy)
+            ResetGame();
     }
 
     private void SpawnFood()
@@ -42,8 +47,9 @@ public class GameManager : MonoBehaviour
         _currentFood = Instantiate(foodPrefab, rndPos, Quaternion.identity); // last is rotation
     }
 
-    public void ResetGame()
+    private void ResetGame()
     {
+        endMenu.SetActive(false);
         _score = 0;
         scoreText.text = _score.ToString();
         player.ResetPlayer();
@@ -75,5 +81,16 @@ public class GameManager : MonoBehaviour
         _isPaused = !_isPaused;
         Time.timeScale = _isPaused ? 0 : 1;
         pauseMenu.SetActive(_isPaused);
+    }
+
+    public void EndGame()
+    {
+        ToggleEndMenu();
+    }
+
+    private void ToggleEndMenu()
+    {
+        endMenu.SetActive(!endMenu.activeSelf);
+        endScoreText.text = "SCORE: " + _score;
     }
 }
