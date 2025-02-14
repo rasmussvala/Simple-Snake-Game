@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     private void ResetGame()
     {
+        Time.timeScale = 1f;
         endMenu.SetActive(false);
         _score = 0;
         scoreText.text = _score.ToString();
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        Time.timeScale = 0;
         ToggleEndMenu();
     }
 
