@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -5,16 +6,19 @@ public class GameManager : MonoBehaviour
 {
     public GameObject foodPrefab;
     public Player player;
-    
+    public TextMeshProUGUI scoreText;
+
     private GameObject _currentFood;
+    private int _score = 0;
 
     private const float CellSize = 0.3f;
     private const int GridSizeX = 20;
     private const int GridSizeY = 13;
-    
+
     private void Start()
     {
         SpawnFood();
+        scoreText.text = _score.ToString();
     }
 
     private void SpawnFood()
@@ -30,24 +34,29 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
-        if (_currentFood)
-        {
-            Destroy(_currentFood);
-            SpawnFood();
-        }
-
+        _score = 0;
+        scoreText.text = _score.ToString();
         player.ResetPlayer();
+
+        if (!_currentFood) return;
+        Destroy(_currentFood);
+        SpawnFood();
     }
 
     public void FoodEaten()
     {
+        AddScore();
         player.AddTail();
         player.IncreaseSpeed();
-        
+
         if (!_currentFood) return;
-        
         Destroy(_currentFood);
         SpawnFood();
+    }
 
+    private void AddScore()
+    {
+        _score++;
+        scoreText.text = _score.ToString();
     }
 }

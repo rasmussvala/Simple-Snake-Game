@@ -3,7 +3,7 @@ using UnityEngine;
 public class BackgroundManager : MonoBehaviour
 {
     public GameObject cell;
-    public GameObject collisionCell; 
+    public GameObject collisionCell;
 
     private void Start()
     {

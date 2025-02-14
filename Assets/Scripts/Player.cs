@@ -84,6 +84,6 @@ public class Player : MonoBehaviour
 
     public void IncreaseSpeed()
     {
-       _speed += 0.5f;
+        _speed += 0.5f;
     }
 }

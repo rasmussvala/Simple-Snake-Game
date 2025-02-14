@@ -7,7 +7,8 @@ public class CollisionCell : MonoBehaviour
 
     private void Start()
     {
-        collisionDetected.AddListener(GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().ResetGame);
+        collisionDetected.AddListener(GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>()
+            .ResetGame);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
